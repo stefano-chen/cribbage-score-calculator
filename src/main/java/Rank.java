@@ -1,3 +1,4 @@
+// An enumeration that assign each rank the correspondent value
 public enum Rank {
     A(1),
     Two(2),

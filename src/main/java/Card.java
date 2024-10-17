@@ -2,6 +2,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+// A Card is represented by a Rank and a Suit
+// The rank can only be one of this values : A 2 3 4 5 6 7 8 9 10 J Q K
+// The 10 is the only rank that use two digit, so to simplify the code we decide to assign the rank 10 --> 0
+// The possible Suits are : C --> CLUB  D --> DIAMOND  H --> HEART  S --> SPADE
 public class Card {
     private final Rank rank;
     private final Suit suit;
@@ -50,10 +54,12 @@ public class Card {
         return this.rank.getValue();
     }
 
+    // Check if this card has a specified suit
     public boolean sameSuit(Suit suit){
         return this.suit == suit;
     }
 
+    // Check if this card has a specified rank
     public boolean sameRank(Rank rank){
         return this.rank == rank;
     }
@@ -63,6 +69,7 @@ public class Card {
         return "rank: " + this.getRank() + " suit: " + this.getSuit();
     }
 
+    // Two cards are equals only if they have the same rank and suit
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +83,9 @@ public class Card {
         return Objects.hash(rank, suit);
     }
 
+    // To generate a new card from a 2 character string
+    // where the first character represents the rank
+    // and the second character represents the suit
     public static Card fromString(String card) throws NotACardException {
         if (card.length() != 2) {
             throw new NotACardException("Card string not well formatted");

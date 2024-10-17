@@ -13,8 +13,8 @@ public class Main {
         try{
             Hand hand = new Hand(cards);
             System.out.println(hand);
-            Card[] foundedCards = hand.getCards(Suit.CLUB);
-            System.out.println( (foundedCards == null)? "Not found" : foundedCards.length);
+            Card[] foundCards = hand.getCards(Suit.CLUB);
+            System.out.println( (foundCards == null)? "Not found" : foundCards.length);
         }catch(NotACardException e){
             System.out.println("Invalid Input");
         }

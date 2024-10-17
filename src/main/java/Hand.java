@@ -169,7 +169,7 @@ public class Hand {
     // 3 points for a run of three consecutive cards (regardless of suit)
     // 4 points for a run of four
     // 5 points for a run of five
-    public int checkRuns() {
+    private int checkRuns() {
         Card[] x = Arrays.copyOf(this.cards, 5);
         x[4] = this.starter;
         // the greatest scale achieved at the moment

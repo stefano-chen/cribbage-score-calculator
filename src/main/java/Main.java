@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -13,10 +12,11 @@ public class Main {
         try{
             Hand hand = new Hand(cards);
             System.out.println(hand);
-            Card[] foundCards = hand.getCards(Suit.CLUB);
-            System.out.println( (foundCards == null)? "Not found" : foundCards.length);
-        }catch(NotACardException e){
-            System.out.println("Invalid Input");
+//            Card[] foundCards = hand.getCards(Suit.CLUB);
+//            System.out.println( (foundCards == null)? "Not found" : foundCards.length);
+            System.out.println("Score: " + hand.calculateScore());
+        }catch(CardException e){
+            System.out.println(e.getMessage());
         }
 //        Card card1 = Card.fromString("AC");
 //        Card card2 = Card.fromString("AD");

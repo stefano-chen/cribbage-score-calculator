@@ -8,7 +8,7 @@ public class Hand {
     private Card starter;
     private final String strCard;
 
-    public Hand(String cards) throws NotACardException {
+    public Hand(String cards) throws CardException {
         this.strCard = cards;
         fromString(this.strCard);
     }
@@ -53,10 +53,10 @@ public class Hand {
 
     // Given a string representing the 5 cards
     // It creates an array containing the 4 hand cards and initialize the starter card
-    private void fromString(String strCard) throws NotACardException {
-        String[] token = this.strCard.split(" ");
+    private void fromString(String strCard) throws CardException {
+        String[] token = strCard.split(" ");
         if (token.length != 5) {
-            throw new NotACardException("Card string not well formatted");
+            throw new CardException("Cards string not well formatted");
         }
         for (int i = 0; i < token.length - 1; i++) {
             this.cards[i] = Card.fromString(token[i]);
@@ -87,8 +87,21 @@ public class Hand {
     // An additional 1 point if in the 4 hand cards there is a Jack with the same suit as the starter
     private int checkFlush() {
         int points = 0;
-
-
+        Card[] handCards = this.getCards(this.cards[0].getSuit());
+        if (handCards.length == 4) {
+            points += 4;
+            if (handCards[0].sameSuit(this.starter.getSuit())) {
+                points += 1;
+            }
+        }
+        handCards = this.getCards(Rank.Jack);
+        if (handCards != null) {
+            for (Card c : handCards) {
+                if (c.sameSuit(this.starter.getSuit())) {
+                    points += 1;
+                }
+            }
+        }
         return points;
     }
 

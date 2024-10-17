@@ -86,15 +86,15 @@ public class Card {
     // To generate a new card from a 2 character string
     // where the first character represents the rank
     // and the second character represents the suit
-    public static Card fromString(String card) throws NotACardException {
+    public static Card fromString(String card) throws CardException {
         if (card.length() != 2) {
-            throw new NotACardException("Card string not well formatted");
+            throw new CardException("Card string not well formatted");
         }
         Rank rank = rankMap.get(card.charAt(0));
         Suit suit = suitMap.get(card.charAt(1));
 
         if (rank == null || suit == null) {
-            throw new NotACardException("Invalid Rank/Suit");
+            throw new CardException("Invalid Rank/Suit");
         }
 
         return new Card(rank, suit);

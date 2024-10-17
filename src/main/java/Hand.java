@@ -14,7 +14,6 @@ public class Hand {
     public Hand(String cards) throws CardException {
         this.strCard = cards;
         fromString(this.strCard);
-        Arrays.sort(this.cards);
     }
 
     public Card getStarter() {
@@ -144,9 +143,28 @@ public class Hand {
     // 3 points for a run of three consecutive cards (regardless of suit)
     // 4 points for a run of four
     // 5 points for a run of five
-    private int checkRuns() {
+    public int checkRuns() {
+        Card[] x = Arrays.copyOf(this.cards, 5);
+        x[4] = this.starter;
+        Arrays.sort(x);
+        // the greatest scale achieved at the moment
+        int maxScaleLen = 1;
+        int i = 0;
+        // current number of cards at the moment in the scale
+        int currScaleLen = 1;
 
-        return 0;
+        while (i < x.length - 1) {
+            if (x[i].getValue() == x[i + 1].getValue() - 1) {
+                currScaleLen += 1;
+            } else {
+                maxScaleLen = Math.max(maxScaleLen, currScaleLen);
+                currScaleLen = 1;
+            }
+            i++;
+        }
+        maxScaleLen = Math.max(maxScaleLen, currScaleLen);
+
+        return maxScaleLen < 3 ? 0 : maxScaleLen;
     }
 
     // 2 points for each separate combination of two or more cards totalling exactly 15

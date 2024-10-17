@@ -12,7 +12,7 @@ public class Main {
         try{
             Hand hand = new Hand(cards);
             System.out.println(hand);
-            System.out.println("Score: " + hand.calculateScore());
+            System.out.println("Score: " + hand.checkRuns());
         }catch(CardException e){
             System.out.println(e.getMessage());
         }

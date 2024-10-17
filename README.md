@@ -30,7 +30,7 @@ We represent a card with two characters. The first character is the rank, the se
 As an example, "4H" is the four of Hearts.
 
 A Cribbage hand is represented as a string of ten characters. The first eight characters represent the four hand cards. The last two characters represent the starter card.
-For example, the string "5H 5D 5S JC 5C" represent a Cribbage hand with five of Hearts, five of Diamonds, five of Spades and Jack of Clubs as hand card and five of Clubs as starter card.
+For example, the string "5H5D5SJC5C" represent a Cribbage hand with five of Hearts, five of Diamonds, five of Spades and Jack of Clubs as hand card and five of Clubs as starter card.
 
 ## Scoring
 
@@ -51,7 +51,7 @@ A Cribbage hand score is calculated with the following rules.
 
 | Cribbage hand | Score |
 |---------------|--------|
-| 5H 5D 5S JC 5C    |29|
-| 0D JH QS AC 9D    |4|
+| 5H5D5SJC5C    |29|
+| 0DJHQSAC9D    |4|
 
 For more information and scoring examples look [here](https://en.wikipedia.org/wiki/Rules_of_cribbage).

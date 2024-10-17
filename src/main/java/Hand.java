@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 // A class to represent the Hand
 // A hand is composed by 4 hand card and a 1 starter card
@@ -11,6 +14,7 @@ public class Hand {
     public Hand(String cards) throws CardException {
         this.strCard = cards;
         fromString(this.strCard);
+        Arrays.sort(this.cards);
     }
 
     public Card getStarter() {
@@ -109,7 +113,31 @@ public class Hand {
     // 6 points for three cards with the same rank
     // 12 points for four cards with the same rank
     private int checkPairs() {
-        return 0;
+        int points = 0;
+        Map<Rank, Integer> hashmap = new HashMap<>();
+        for (Card c : this.cards) {
+            if (!hashmap.containsKey(c.getRank())) {
+                hashmap.put(c.getRank(), 1);
+            } else {
+                Rank rank = c.getRank();
+                hashmap.put(rank, hashmap.get(rank) + 1);
+            }
+        }
+
+        for (Map.Entry<Rank, Integer> entry : hashmap.entrySet()) {
+            switch (entry.getValue()) {
+                case 2:
+                    points += 2;
+                    break;
+                case 3:
+                    points += 6;
+                    break;
+                case 4:
+                    points += 12;
+                    break;
+            }
+        }
+        return points;
     }
 
 
@@ -117,6 +145,7 @@ public class Hand {
     // 4 points for a run of four
     // 5 points for a run of five
     private int checkRuns() {
+
         return 0;
     }
 

@@ -6,7 +6,7 @@ import java.util.Objects;
 // The rank can only be one of this values : A 2 3 4 5 6 7 8 9 10 J Q K
 // The 10 is the only rank that use two digit, so to simplify the code we decide to assign the rank 10 --> 0
 // The possible Suits are : C --> CLUB  D --> DIAMOND  H --> HEART  S --> SPADE
-public class Card {
+public class Card  implements Comparable<Card>{
     private final Rank rank;
     private final Suit suit;
 
@@ -62,6 +62,11 @@ public class Card {
     // Check if this card has a specified rank
     public boolean sameRank(Rank rank){
         return this.rank == rank;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return Integer.compare(this.rank.getValue(), o.rank.getValue());
     }
 
     @Override

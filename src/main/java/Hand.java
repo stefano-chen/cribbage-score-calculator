@@ -134,8 +134,9 @@ public class Hand {
         // Create a Dictionary with the number of occurrences per rank
         Map<Rank, Integer> hashmap = new HashMap<>();
 
-        for (Card c : this.cards) {
-
+        Card c;
+        for (int i = 0; i < this.cards.length + 1; i++) {
+            c = (i < this.cards.length) ? this.cards[i] : this.starter;
             if (!hashmap.containsKey(c.getRank())) {
                 hashmap.put(c.getRank(), 1);
             } else {
@@ -197,8 +198,87 @@ public class Hand {
         return maxScaleLen < 3 ? 0 : maxScaleLen;
     }
 
+
+    // Recursive function that returns the number of combinations of two or more cards that sum up to 15
+    // target is the sum we want to reach (in this case 15)
+    // cardIdx is the index of the card we are considering
+    private int numCombSumFifteen(int target, int cardIdx, int[] cards) {
+
+        // This function divide ,the problem of summing up to Target, in sub problems of finding the sub_target
+
+        /*
+         *  Let's consider the cards with value [ 5, 5, 5, 10, 5]
+         *
+         *  Each node of this binary tree is the current target obtained by [ previous target - taken card ]
+         *  The left branch represent the choice to take/consider the current card
+         *  The right branch represent the choice to NOT take/consider the current card
+         *
+         *                                                                   15
+         *cardIdx:0      current card: 5             take /                                   \ not take
+         *                                              10                                     15
+         *cardIdx:1      current card: 5         /              \                    /                     \
+         *                                      5                10                 10                     15
+         *cardIdx:2      current card: 5       / \            /     \           /       \            /           \
+         *                                    0   5           5     10         5         10        10             15
+         *cardIdx:3      current card: 10        / \         / \    / \       / \       /  \      /  \          /   \
+         *                                      -5  5      -5   5  0   10    -5  5     0    10   0   10        5     15
+         *cardIdx:4      current card: 5           / \         / \     /\       / \        /  \      / \      / \   /  \
+         *                                        0   5       0   5   5  10    0   5      5    10   5   10   0   5 10  15
+         *cardIdx:5
+         *
+         *
+         *   The number of ways to sum up to 15 with two or more cards is represented by the number of zeros in this binary tree
+         *   When we find a node with target == 0, we return 1. In all other case (negative target, target != 0 after last iteration) we return 0
+         *   A node that receive the returns of the children has to sum them up and return it to the parent node
+         *
+         *   E.g. To sum up to 15 we can take the following card [first 5, second 5 , third 5] (the left most branch)
+         *        or we could [first 5, not second 5, third 5, not 10, last 5] (the third zero from the left)
+         * */
+
+
+        // There is only 1 way to sum up to the target 0 (base case)
+        if (target == 0) {
+            return 1;
+        }
+
+        // There are 0 ways to sum up to a negative number since the card values are not negative (base case)
+        if (target < 0) {
+            return 0;
+        }
+
+        // if after considering all cards, the target is still not zero then we have 0 ways to the target
+        if (cardIdx >= cards.length) {
+            return 0;
+        }
+
+        // The target of the new sub problem
+        int sub_target = target - cards[cardIdx];
+
+        // We can consider the card in position cardIdex and subtract from the target then move to the next card
+        // Or we could ignore the current card and move to the next one.
+        int countWays = numCombSumFifteen(sub_target, cardIdx + 1, cards) + numCombSumFifteen(target, cardIdx + 1, cards);
+
+        return countWays;
+    }
+
     // 2 points for each separate combination of two or more cards totalling exactly 15
     private int checkFifteenTwos() {
-        return 0;
+
+        // Array that contains only the cards value
+        int[] cardValue = new int[5];
+
+        Card c;
+
+        for (int i = 0; i < this.cards.length + 1; i++) {
+            c = (i < this.cards.length) ? this.cards[i] : this.starter;
+            // The jack, queen and king have value 10
+            if (c.getRank() != Rank.Jack && c.getRank() != Rank.Queen && c.getRank() != Rank.King) {
+                cardValue[i] = c.getValue();
+            } else {
+                cardValue[i] = 10;
+            }
+        }
+
+        return 2 * numCombSumFifteen(15, 0, cardValue);
     }
 }

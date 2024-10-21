@@ -235,7 +235,7 @@ public class Hand {
          *        or we could [first 5, not second 5, third 5, not 10, last 5] (the third zero from the left)
          *
          *   Note: Let n = array.length   let m = target
-         *         This is a brute force approach with a time complexity of O(2^n) and a space complexity of O(m).
+         *         This is a brute force approach with a time complexity of O(2^n) and a space complexity of O(n).
          *         It can be optimized by using Memoization or Tabulation.
          *         But since n and m are fixed, we require only 2^5 (=32) operations to obtain the result.
          *         Only in this case optimization is not worth.

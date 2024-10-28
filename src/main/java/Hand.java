@@ -62,7 +62,7 @@ public class Hand {
     // Given a string representing the 5 cards
     // It creates an array containing the 4 hand cards and initialize the starter card
     private void fromString(String strCard) throws CardException {
-        String[] token = strCard.split(" ");
+        String[] token = strCard.toUpperCase().split(" ");
 
         if (token.length != 5) {
             throw new CardException("Cards string not well formatted");

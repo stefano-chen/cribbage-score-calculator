@@ -27,4 +27,11 @@ public class CribbageTest {
         assertEquals(29, new Hand("5h 5d 5s jc 5c").calculateScore());
         assertEquals(4, new Hand("0d jh qs ac 9d").calculateScore());
     }
+
+    // This is an always failing test, to see what would happen on github actions if we push a change that does not pass
+    // all tests
+    @Test
+    void AlwaysFailingTest() {
+        assertEquals(true, false);
+    }
 }

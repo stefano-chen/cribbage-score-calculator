@@ -30,8 +30,8 @@ public class CribbageTest {
 
     // This is an always failing test, to see what would happen on github actions if we push a change that does not pass
     // all tests
-    @Test
+    /*@Test
     void AlwaysFailingTest() {
         assertEquals(true, false);
-    }
+    }*/
 }
